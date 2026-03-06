@@ -32,56 +32,101 @@
     --text-theme-sm: 0.875rem;
 }
 
-/* Scrollbar estilo liquid glass / minimalista */
-.custom-scrollbar {
-  padding-right: 0.25rem;
+/* Scrollbars delgadas y de buen aspecto en todo el sistema */
+
+/* Firefox */
+.custom-scrollbar,
+.main-content-scroll,
+.scrollbar-app,
+.overflow-auto,
+.overflow-x-auto,
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.5) rgba(241, 245, 249, 0.5);
 }
-.custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  border-radius: 9999px;
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 9999px;
-  background: rgba(148, 163, 184, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
-}
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(71, 85, 105, 0.4);
-  border-color: rgba(0, 0, 0, 0.2);
-}
-.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(71, 85, 105, 0.55);
+.dark .scrollbar-app,
+.dark .main-content-scroll,
+.dark .custom-scrollbar,
+.dark .overflow-auto,
+.dark .overflow-x-auto,
+.dark .overflow-y-auto,
+html.dark .scrollbar-app,
+html.dark .main-content-scroll {
+  scrollbar-color: #475569 #1e293b;
 }
 
+/* WebKit: scrollbar del área principal (derecha) - forzar estilo para que no se vea el por defecto */
+.scrollbar-app::-webkit-scrollbar,
+.main-content-scroll::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar,
+.overflow-auto::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-app::-webkit-scrollbar-track,
+.main-content-scroll::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track,
+.overflow-auto::-webkit-scrollbar-track,
+.overflow-x-auto::-webkit-scrollbar-track,
+.overflow-y-auto::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+.dark .scrollbar-app::-webkit-scrollbar-track,
+.dark .main-content-scroll::-webkit-scrollbar-track,
+html.dark .scrollbar-app::-webkit-scrollbar-track,
+html.dark .main-content-scroll::-webkit-scrollbar-track,
+.dark .custom-scrollbar::-webkit-scrollbar-track,
+.dark .overflow-auto::-webkit-scrollbar-track,
+.dark .overflow-x-auto::-webkit-scrollbar-track,
+.dark .overflow-y-auto::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+.scrollbar-app::-webkit-scrollbar-thumb,
+.main-content-scroll::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb,
+.overflow-auto::-webkit-scrollbar-thumb,
+.overflow-x-auto::-webkit-scrollbar-thumb,
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: #94a3b8;
+  border: 1px solid #e2e8f0;
+}
+.scrollbar-app::-webkit-scrollbar-thumb:hover,
+.main-content-scroll::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar::-webkit-scrollbar-thumb:hover,
+.overflow-auto::-webkit-scrollbar-thumb:hover,
+.overflow-x-auto::-webkit-scrollbar-thumb:hover,
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+.dark .scrollbar-app::-webkit-scrollbar-thumb,
+.dark .main-content-scroll::-webkit-scrollbar-thumb,
+html.dark .scrollbar-app::-webkit-scrollbar-thumb,
+html.dark .main-content-scroll::-webkit-scrollbar-thumb,
+.dark .custom-scrollbar::-webkit-scrollbar-thumb,
+.dark .overflow-auto::-webkit-scrollbar-thumb,
+.dark .overflow-x-auto::-webkit-scrollbar-thumb,
+.dark .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-color: #1e293b;
+}
+.dark .scrollbar-app::-webkit-scrollbar-thumb:hover,
+.dark .main-content-scroll::-webkit-scrollbar-thumb:hover,
+html.dark .scrollbar-app::-webkit-scrollbar-thumb:hover,
+html.dark .main-content-scroll::-webkit-scrollbar-thumb:hover,
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover,
+.dark .overflow-auto::-webkit-scrollbar-thumb:hover,
+.dark .overflow-x-auto::-webkit-scrollbar-thumb:hover,
+.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
 .main-content-scroll {
   padding-right: 0.25rem;
 }
-.main-content-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-.main-content-scroll::-webkit-scrollbar-track {
-  border-radius: 9999px;
-  background: transparent;
-}
-.main-content-scroll::-webkit-scrollbar-thumb {
-  border-radius: 9999px;
-  background: rgba(148, 163, 184, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.main-content-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
-}
-.dark .main-content-scroll::-webkit-scrollbar-thumb {
-  background: rgba(71, 85, 105, 0.4);
-  border-color: rgba(0, 0, 0, 0.2);
-}
-.dark .main-content-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(71, 85, 105, 0.55);
+.custom-scrollbar {
+  padding-right: 0.25rem;
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ConsultaProductosController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,9 +24,12 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Consultas
-    Route::get('/consulta/productos', function () {
-        return Inertia::render('EnDesarrollo', ['title' => 'Consulta - Productos farmacéuticos']);
-    })->name('consulta.productos');
+    Route::get('/consulta/productos', [ConsultaProductosController::class, 'index'])->name('consulta.productos');
+
+    // Página genérica "En desarrollo" (p. ej. enlace Similar en consulta productos)
+    Route::get('/en-desarrollo', function () {
+        return Inertia::render('EnDesarrollo', ['title' => 'En desarrollo']);
+    })->name('en-desarrollo');
 
     // Mantenimiento (todas las rutas definidas para el menú; vistas en desarrollo)
     Route::get('/mantenimiento/clientes', function () {

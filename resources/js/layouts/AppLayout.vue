@@ -80,11 +80,11 @@ const mainMarginClass = computed(() => {
     <Sidebar :menu-groups="menuGroups" :current-path="currentPath" />
 
     <div
-      class="min-w-0 flex-1 transition-all duration-300 ease-in-out bg-gray-50 dark:bg-gray-900"
+      class="min-w-0 flex-1 pr-4 transition-all duration-300 ease-in-out bg-gray-50 dark:bg-gray-900 md:pr-6"
       :class="mainMarginClass"
     >
       <AppHeader />
-      <main class="main-content-scroll mx-auto min-w-0 max-w-[1600px] overflow-x-hidden overflow-y-auto p-4 md:p-6">
+      <main class="main-content-scroll scrollbar-app mx-auto min-w-0 max-w-[1600px] overflow-x-hidden overflow-y-auto p-4 md:p-6">
         <slot />
       </main>
     </div>

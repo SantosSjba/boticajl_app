@@ -3,6 +3,8 @@ import { Head, useForm } from '@inertiajs/vue3';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BasePasswordInput from '@/components/ui/BasePasswordInput.vue';
+import IconSun from '@/components/ui/IconSun.vue';
+import IconMoon from '@/components/ui/IconMoon.vue';
 
 const props = defineProps<{
   title: string;
@@ -49,18 +51,7 @@ function toggleTheme() {
     >
       <!-- Columna formulario -->
       <div class="flex w-full flex-1 flex-col lg:w-1/2">
-        <div class="mx-auto w-full max-w-md pt-10">
-          <a
-            :href="props.loginUrl"
-            class="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-          >
-            <img
-              src="/images/logo/logo_oficial.png"
-              alt="Botica J&amp;L"
-              class="h-10 w-auto object-contain"
-            />
-          </a>
-        </div>
+
         <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6">
           <div>
             <div class="mb-5 sm:mb-8">
@@ -110,36 +101,34 @@ function toggleTheme() {
       <div
         class="relative hidden h-full w-full items-center bg-brand-950 dark:bg-white/5 lg:grid lg:w-1/2"
       >
-        <div class="z-[1] flex items-center justify-center">
-          <div class="flex max-w-xs flex-col items-center">
-            <a :href="props.loginUrl" class="mb-4 block">
+        <div class="z-[1] flex items-center justify-center p-8">
+          <div class="flex max-w-sm flex-col items-center">
+            <a :href="props.loginUrl" class="mb-5 block focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-brand-950 rounded-lg">
               <img
                 src="/images/logo/logo_oficial.png"
                 alt="Botica J&amp;L"
-                class="h-24 w-auto object-contain drop-shadow-md"
+                class="h-28 w-auto max-h-44 object-contain drop-shadow-lg sm:h-32 lg:h-36"
               />
             </a>
-            <p class="text-center text-gray-400 dark:text-white/60">
+            <p class="text-center text-sm text-gray-400 dark:text-white/60 sm:text-base">
               Sistema de Farmacia / Botica J&amp;L
             </p>
           </div>
         </div>
       </div>
 
-      <!-- Toggle tema -->
+      <!-- Botón modo oscuro (igual que proyecto antiguo) -->
       <div class="fixed right-6 bottom-6 z-50">
         <button
           type="button"
-          class="inline-flex size-14 items-center justify-center rounded-full bg-brand-500 text-white transition-colors hover:bg-brand-600"
+          class="bg-brand-500 hover:bg-brand-600 inline-flex size-14 items-center justify-center rounded-full text-white transition-colors"
           aria-label="Alternar tema claro/oscuro"
           @click="toggleTheme"
         >
-          <svg class="h-5 w-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.4547 11.97L18.1799 12.1611C18.265 11.8383 18.1265 11.4982 17.8401 11.3266C17.5538 11.1551 17.1885 11.1934 16.944 11.4207L17.4547 11.97ZM8.0306 2.5459L8.57989 3.05657C8.80718 2.81209 8.84554 2.44682 8.67398 2.16046C8.50243 1.8741 8.16227 1.73559 7.83948 1.82066L8.0306 2.5459ZM12.9154 13.0035C9.64678 13.0035 6.99707 10.3538 6.99707 7.08524H5.49707C5.49707 11.1823 8.81835 14.5035 12.9154 14.5035V13.0035ZM16.944 11.4207C15.8869 12.4035 14.4721 13.0035 12.9154 13.0035V14.5035C14.8657 14.5035 16.6418 13.7499 17.9654 12.5193L16.944 11.4207Z" />
-          </svg>
-          <svg class="hidden h-5 w-5 dark:block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99998 1.5415C10.4142 1.5415 10.75 1.87729 10.75 2.2915V3.5415C10.75 3.95572 10.4142 4.2915 9.99998 4.2915C9.58577 4.2915 9.24998 3.95572 9.24998 3.5415V2.2915C9.24998 1.87729 9.58577 1.5415 9.99998 1.5415ZM10.0009 6.79327C8.22978 6.79327 6.79402 8.22904 6.79402 10.0001C6.79402 11.7712 8.22978 13.207 10.0009 13.207C11.772 13.207 13.2078 11.7712 13.2078 10.0001C13.2078 8.22904 11.772 6.79327 10.0009 6.79327Z" />
-          </svg>
+          <!-- Sol: se muestra en modo oscuro (para cambiar a claro) -->
+          <IconSun class="hidden dark:block" />
+          <!-- Luna: se muestra en modo claro (para cambiar a oscuro) -->
+          <IconMoon class="dark:hidden" />
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,10 +19,8 @@ Route::middleware('guest')->group(function (): void {
 Route::middleware('auth')->group(function (): void {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Dashboard
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard', ['title' => 'Inicio']);
-    })->name('dashboard');
+    // Dashboard (igual que sistema antiguo: bienvenida, tiles, resumen financiero solo admin, tablas productos)
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Consultas
     Route::get('/consulta/productos', function () {

@@ -19,6 +19,8 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             sidebarOpen: boolean;
+            logout_url: string;
+            csrf_token: string;
             [key: string]: unknown;
         };
     }

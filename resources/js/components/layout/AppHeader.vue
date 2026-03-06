@@ -1,0 +1,162 @@
+<script setup lang="ts">
+import { ref, inject } from 'vue';
+import { Link } from '@inertiajs/vue3';
+import type { SidebarState } from '@/components/layout/Sidebar.vue';
+import IconSun from '@/components/ui/IconSun.vue';
+import IconMoon from '@/components/ui/IconMoon.vue';
+import UserDropdown from '@/components/layout/UserDropdown.vue';
+
+const sidebar = inject<SidebarState>('sidebar')!;
+const isApplicationMenuOpen = ref(false);
+
+function toggleApplicationMenu(): void {
+  isApplicationMenuOpen.value = !isApplicationMenuOpen.value;
+}
+
+function toggleTheme(): void {
+  const html = document.documentElement;
+  const isDark = html.classList.toggle('dark');
+  if (isDark) {
+    document.body.classList.add('dark', 'bg-gray-900');
+  } else {
+    document.body.classList.remove('dark', 'bg-gray-900');
+  }
+  try {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  } catch {
+    // ignore
+  }
+}
+</script>
+
+<template>
+  <header
+    class="sticky top-0 z-[99999] flex w-full border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 xl:border-b"
+  >
+    <div class="flex grow flex-col items-center justify-between xl:flex-row xl:px-6">
+      <!-- Fila 1: toggle sidebar, logo (mobile), botón menú aplicación (mobile) -->
+      <div
+        class="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 dark:border-gray-800 sm:gap-4 xl:justify-normal xl:border-b-0 xl:px-0 lg:py-4"
+      >
+        <!-- Desktop sidebar toggle (solo xl) -->
+        <button
+          type="button"
+          class="hidden size-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 dark:border-gray-800 dark:text-gray-400 xl:flex lg:size-11"
+          :class="{ 'bg-gray-100 dark:bg-white/[0.03]': !sidebar.isExpanded }"
+          aria-label="Toggle Sidebar"
+          @click="sidebar.toggleExpanded()"
+        >
+          <svg
+            v-show="!sidebar.isMobileOpen"
+            width="16"
+            height="12"
+            viewBox="0 0 16 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0.583252 1C0.583252 0.585788 0.919038 0.25 1.33325 0.25H14.6666C15.0808 0.25 15.4166 0.585786 15.4166 1C15.4166 1.41421 15.0808 1.75 14.6666 1.75L1.33325 1.75C0.919038 1.75 0.583252 1.41422 0.583252 1ZM0.583252 11C0.583252 10.5858 0.919038 10.25 1.33325 10.25L14.6666 10.25C15.0808 10.25 15.4166 10.5858 15.4166 11C15.4166 11.4142 15.0808 11.75 14.6666 11.75L1.33325 11.75C0.919038 11.75 0.583252 11.4142 0.583252 11ZM1.33325 5.25C0.919038 5.25 0.583252 5.58579 0.583252 6C0.583252 6.41421 0.919038 6.75 1.33325 6.75L7.99992 6.75C8.41413 6.75 8.74992 6.41421 8.74992 6C8.74992 5.58579 8.41413 5.25 7.99992 5.25L1.33325 5.25Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            v-show="sidebar.isMobileOpen"
+            class="size-6 fill-current"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+
+        <!-- Mobile menu toggle (hamburguesa, solo en móvil) -->
+        <button
+          type="button"
+          class="flex size-10 items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 xl:hidden lg:size-11"
+          :class="{ 'bg-gray-100 dark:bg-white/[0.03]': sidebar.isMobileOpen }"
+          aria-label="Toggle Mobile Menu"
+          @click="sidebar.toggleMobileOpen()"
+        >
+          <svg
+            v-show="!sidebar.isMobileOpen"
+            width="16"
+            height="12"
+            viewBox="0 0 16 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0.583252 1C0.583252 0.585788 0.919038 0.25 1.33325 0.25H14.6666C15.0808 0.25 15.4166 0.585786 15.4166 1C15.4166 1.41421 15.0808 1.75 14.6666 1.75L1.33325 1.75C0.919038 1.75 0.583252 1.41422 0.583252 1ZM0.583252 11C0.583252 10.5858 0.919038 10.25 1.33325 10.25L14.6666 10.25C15.0808 10.25 15.4166 10.5858 15.4166 11C15.4166 11.4142 15.0808 11.75 14.6666 11.75L1.33325 11.75C0.919038 11.75 0.583252 11.4142 0.583252 11ZM1.33325 5.25C0.919038 5.25 0.583252 5.58579 0.583252 6C0.583252 6.41421 0.919038 6.75 1.33325 6.75L7.99992 6.75C8.41413 6.75 8.74992 6.41421 8.74992 6C8.74992 5.58579 8.41413 5.25 7.99992 5.25L1.33325 5.25Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            v-show="sidebar.isMobileOpen"
+            class="size-6 fill-current"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+
+        <!-- Logo (solo mobile) -->
+        <Link href="/dashboard" class="xl:hidden">
+          <img class="h-8 w-auto object-contain" src="/images/logo/logo_oficial.png" alt="Botica J&amp;L" />
+        </Link>
+
+        <!-- Botón menú aplicación / dots (solo mobile) -->
+        <button
+          type="button"
+          class="z-[99999] flex size-10 items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 xl:hidden"
+          aria-label="Menú de aplicación"
+          @click="toggleApplicationMenu"
+        >
+          <svg class="size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.99902 10.4951C6.82745 10.4951 7.49902 11.1667 7.49902 11.9951V12.0051C7.49902 12.8335 6.82745 13.5051 5.99902 13.5051C5.1706 13.5051 4.49902 12.8335 4.49902 12.0051V11.9951C4.49902 11.1667 5.1706 10.4951 5.99902 10.4951ZM17.999 10.4951C18.8275 10.4951 19.499 11.1667 19.499 11.9951V12.0051C19.499 12.8335 18.8275 13.5051 17.999 13.5051C17.1706 13.5051 16.499 12.8335 16.499 12.0051V11.9951C16.499 11.1667 17.1706 10.4951 17.999 10.4951ZM13.499 11.9951C13.499 11.1667 12.8275 10.4951 11.999 10.4951C11.1706 10.4951 10.499 11.1667 10.499 11.9951V12.0051C10.499 12.8335 11.1706 13.5051 11.999 13.5051C12.8275 13.5051 13.499 12.8335 13.499 12.0051V11.9951Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Fila 2 (mobile: al abrir dots) / siempre visible en xl: tema + user dropdown -->
+      <div
+        class="flex w-full items-center justify-between gap-4 px-5 py-4 shadow-md xl:flex xl:justify-end xl:px-0 xl:shadow-none"
+        :class="isApplicationMenuOpen ? 'flex' : 'hidden'"
+      >
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="flex size-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+            aria-label="Alternar tema"
+            @click="toggleTheme"
+          >
+            <IconSun class="hidden dark:block" />
+            <IconMoon class="dark:hidden" />
+          </button>
+        </div>
+        <UserDropdown />
+      </div>
+    </div>
+  </header>
+</template>

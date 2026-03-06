@@ -2,12 +2,14 @@
 
 namespace App\Helpers;
 
+use App\Constants\PermisosConstantes;
 use App\Models\CajaApertura;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 
 /**
  * Reglas de permisos y roles (igual que proyecto antiguo).
+ * Usa PermisosConstantes y config/permisos_farmacia.php para administración centralizada.
  * - ADMINISTRADOR: acceso a todo.
  * - USUARIO: inicio, consultas, clientes, ventas (si caja abierta), caja.
  */
@@ -21,17 +23,17 @@ class PermisosHelper
         }
         $t = $user->tipo;
 
-        return ($t === 'ADMINISTRADOR' || $t === 'USUARIO') ? $t : null;
+        return in_array($t, PermisosConstantes::ROLES_VALIDOS, true) ? $t : null;
     }
 
     public static function isAdministrador(): bool
     {
-        return self::tipo() === 'ADMINISTRADOR';
+        return self::tipo() === PermisosConstantes::ROLE_ADMINISTRADOR;
     }
 
     public static function isUsuario(): bool
     {
-        return self::tipo() === 'USUARIO';
+        return self::tipo() === PermisosConstantes::ROLE_USUARIO;
     }
 
     public static function estadoCaja(): string
@@ -74,7 +76,7 @@ class PermisosHelper
 
     public static function puedeVerMenuVentas(): bool
     {
-        return config('permisos_farmacia.ventas_requiere_caja_abierta', true)
+        return PermisosConstantes::ventasRequiereCajaAbierta()
             ? self::tieneCajaAbierta()
             : true;
     }

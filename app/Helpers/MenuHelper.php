@@ -2,8 +2,11 @@
 
 namespace App\Helpers;
 
+use App\Constants\PermisosConstantes;
+
 /**
  * Menú principal filtrado por rol y estado de caja (igual que proyecto antiguo).
+ * Visibilidad por rol y caja según PermisosConstantes y config/permisos_farmacia.php.
  */
 class MenuHelper
 {
